@@ -12,6 +12,7 @@ from rich.text import Text
 from .analyzer import analyze, load_profile
 from .models import Severity
 from .report import generate_html_report
+from .roadmap import generate_public_roadmap, generate_personal_roadmap
 
 
 console = Console()
@@ -180,3 +181,32 @@ def governments(profile_path: str):
             title=f"[{color}]{gv.country}[/{color}]",
             border_style=color,
         ))
+
+
+@cli.command()
+@click.option("--output", "-o", type=click.Path(), default="docs/roadmap.html",
+              help="Output path for public roadmap")
+def roadmap(output: str):
+    """Generate the public project roadmap (no personal data)."""
+    out = Path(output)
+    generate_public_roadmap(out)
+    console.print(f"[green]Public roadmap saved to {out}[/green]")
+
+
+@cli.command()
+@click.argument("profile_path", type=click.Path(exists=True))
+@click.option("--output", "-o", type=click.Path(), default=None,
+              help="Output path (default: reports/<name>_roadmap.html)")
+def my_roadmap(profile_path: str, output: str | None):
+    """Generate a personalized roadmap with your status overlay."""
+    profile = load_profile(profile_path)
+    result = analyze(profile)
+
+    if output is None:
+        slug = result.name.lower().replace(" ", "_")
+        out = Path(f"reports/{slug}_roadmap.html")
+    else:
+        out = Path(output)
+
+    generate_personal_roadmap(result, out)
+    console.print(f"[green]Personal roadmap saved to {out}[/green]")

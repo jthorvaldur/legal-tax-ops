@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal & Tax Ops — Roadmap</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9;
+          --heading: #f0f6fc; --accent: #58a6ff; --green: #3fb950; --red: #f85149;
+          --yellow: #d29922; --purple: #bc8cff; --dim: #8b949e; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+         background: var(--bg); color: var(--text); padding: 2rem 1rem;
+         max-width: 960px; margin: 0 auto; line-height: 1.6; }
+  h1 { color: var(--heading); font-size: 1.6rem; margin-bottom: 0.25rem; }
+  .subtitle { color: var(--dim); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin: 2rem 0 0.5rem;
+       border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+
+  .phase { background: var(--card); border: 1px solid var(--border);
+           border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem;
+           transition: border-color 0.15s; }
+  .phase:hover { border-color: var(--accent); }
+  .phase-header { display: flex; justify-content: space-between; align-items: center;
+                  margin-bottom: 0.75rem; }
+  .phase-title { font-size: 1.1rem; font-weight: 700; color: var(--heading); }
+  .phase-desc { color: var(--dim); font-size: 0.85rem; margin-bottom: 0.75rem; }
+
+  .badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 12px;
+           font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+  .badge-done { background: rgba(63,185,80,0.15); color: var(--green); }
+  .badge-next { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .badge-future { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .badge-planned { background: rgba(88,166,255,0.1); color: var(--accent); }
+
+  .items { list-style: none; padding: 0; }
+  .item { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.4rem 0;
+          border-bottom: 1px solid rgba(48,54,61,0.5); font-size: 0.85rem; }
+  .item:last-child { border-bottom: none; }
+  .check { flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px; }
+  .check-done { color: var(--green); }
+  .check-planned { color: var(--border); }
+  .item-name { font-weight: 600; }
+  .item-detail { color: var(--dim); font-size: 0.8rem; margin-top: 2px; }
+
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px;
+                  margin: 0.75rem 0 0.25rem; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .progress-fill.green { background: var(--green); }
+  .progress-fill.yellow { background: var(--yellow); }
+  .progress-fill.purple { background: var(--purple); }
+  .progress-label { font-size: 0.7rem; color: var(--dim); }
+
+  
+
+  .footer { text-align: center; color: #484f58; font-size: 0.75rem; margin-top: 2rem;
+            padding-top: 1rem; border-top: 1px solid var(--border); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>Legal & Tax Ops — Roadmap</h1>
+<div class="subtitle">Multi-jurisdiction tax compliance toolkit — what's built, what's next</div>
+
+
+
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-title">Phase 1: Profile & Scanner</span>
+    <span class="badge badge-done">DONE</span>
+  </div>
+  <div class="phase-desc">YAML profile schema + multi-jurisdiction obligation analyzer</div>
+
+  
+  
+  
+  <div class="progress-bar">
+    <div class="progress-fill green"
+         style="width:100%"></div>
+  </div>
+  <div class="progress-label">11/11 complete</div>
+
+  <ul class="items">
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">Profile YAML schema</div>
+        <div class="item-detail">Identity, income, entities, accounts, filings, crypto, distributions</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">US analyzer</div>
+        <div class="item-detail">1040, state returns, estimated payments, Form 1116 FTC</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">UK analyzer</div>
+        <div class="item-detail">Self Assessment, PAYE detection, departure year, high-earner rules</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">Canada analyzer</div>
+        <div class="item-detail">T1, T1135 foreign property, residency-based obligations</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">FBAR analyzer</div>
+        <div class="item-detail">FinCEN 114 — aggregate $10K threshold, per-account penalties</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">FATCA analyzer</div>
+        <div class="item-detail">Form 8938 — threshold by residence ($50K domestic, $200K abroad)</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">Entity analyzer</div>
+        <div class="item-detail">Annual reports, franchise tax, delinquent status, missing returns</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">Crypto analyzer</div>
+        <div class="item-detail">Schedule D/8949, exchange tracking, cost basis alerts</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">Government View</div>
+        <div class="item-detail">What each country knows via FATCA, CRS, PAYE, citizenship, EINs</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">Rich terminal CLI</div>
+        <div class="item-detail">scan, init, governments commands with color-coded output</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-done">
+        &#10003;
+      </span>
+      <div>
+        <div class="item-name">HTML report generator</div>
+        <div class="item-detail">Dark-themed report for sharing with tax professionals</div>
+      </div>
+    </li>
+  
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-title">Phase 2: Entity & Account Tools</span>
+    <span class="badge badge-next">NEXT</span>
+  </div>
+  <div class="phase-desc">Automated entity verification + FBAR preparation + compliance calendars</div>
+
+  
+  
+  
+  <div class="progress-bar">
+    <div class="progress-fill yellow"
+         style="width:0%"></div>
+  </div>
+  <div class="progress-label">0/4 complete</div>
+
+  <ul class="items">
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">Entity search tool</div>
+        <div class="item-detail">Auto-check Secretary of State websites (WY, TX, DE, CA, IL) for entity status. Compare profile against actual state records. Flag dissolved/delinquent/missing.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">FBAR account aggregator</div>
+        <div class="item-detail">Generate account list with max balances per year. Aggregate threshold check. Pre-formatted data for FinCEN 114 e-filing. Multi-year worksheet.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">Entity compliance calendar</div>
+        <div class="item-detail">Per-entity deadlines: annual reports, franchise tax, tax returns, registered agent renewals. iCal (.ics) export.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">IRS transcript request helper</div>
+        <div class="item-detail">Generate Form 4506-T data from profile to request IRS transcripts and verify filing history.</div>
+      </div>
+    </li>
+  
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-title">Phase 3: Professional Matching & Integration</span>
+    <span class="badge badge-future">FUTURE</span>
+  </div>
+  <div class="phase-desc">Connect with the right professionals + bridge to case management</div>
+
+  
+  
+  
+  <div class="progress-bar">
+    <div class="progress-fill purple"
+         style="width:0%"></div>
+  </div>
+  <div class="progress-label">0/3 complete</div>
+
+  <ul class="items">
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">Tax professional finder</div>
+        <div class="item-detail">From profile, determine professional type needed (EA, CPA, international, Big 4). Generate intake document. Checklist of questions for initial consultation.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">div_legal integration</div>
+        <div class="item-detail">Pull financial facts from Qdrant vector DB. Cross-reference case payments against tax deductions. Sync entity data between legal facts and tax profile.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">Professional intake generator</div>
+        <div class="item-detail">One-page PDF summarizing your tax situation for a new CPA — jurisdictions, entities, open items, key numbers.</div>
+      </div>
+    </li>
+  
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-title">Phase 4: Automation & Monitoring</span>
+    <span class="badge badge-future">FUTURE</span>
+  </div>
+  <div class="phase-desc">Continuous compliance monitoring across jurisdictions</div>
+
+  
+  
+  
+  <div class="progress-bar">
+    <div class="progress-fill purple"
+         style="width:0%"></div>
+  </div>
+  <div class="progress-label">0/5 complete</div>
+
+  <ul class="items">
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">HMRC API integration</div>
+        <div class="item-detail">Check UK tax status via Government Gateway. Verify Self Assessment registration and submissions.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">CRA My Account bridge</div>
+        <div class="item-detail">Check Canadian filing status, NOAs, benefit entitlements.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">Automated penalty calculator</div>
+        <div class="item-detail">Precise penalty estimates by jurisdiction — late filing, late payment, information return penalties.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">Annual review generator</div>
+        <div class="item-detail">Year-end report: filed vs. required, entity status, account changes, upcoming deadlines.</div>
+      </div>
+    </li>
+  
+    <li class="item">
+      <span class="check check-planned">
+        &#9744;
+      </span>
+      <div>
+        <div class="item-name">Family dashboard</div>
+        <div class="item-detail">Multi-profile view — aggregate obligations across family members. Shared deadline calendar.</div>
+      </div>
+    </li>
+  
+  </ul>
+</div>
+
+
+<div class="footer">
+  
+  legal-tax-ops — <a href="https://github.com/jthorvaldur/legal-tax-ops">github.com/jthorvaldur/legal-tax-ops</a>
+</div>
+
+</body>
+</html>
