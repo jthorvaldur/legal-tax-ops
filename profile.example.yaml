@@ -1,0 +1,220 @@
+# Tax Profile — Copy to profiles/<your_name>.yaml and fill in
+# This file is YOUR data. It is gitignored and never committed.
+# Create profiles/ directory first: mkdir -p profiles
+
+# ─── Identity ───────────────────────────────────────────────
+identity:
+  name: "Jane Smith"
+  citizenships: ["US", "CA"]            # ISO country codes
+  current_residence:
+    country: "CA"
+    province_state: "AB"
+    since: "2025-06-01"                  # when you moved here
+  prior_residences:
+    - country: "UK"
+      since: "2023-07-01"
+      until: "2025-05-31"
+    - country: "US"
+      state: "IL"
+      since: "2018-01-01"
+      until: "2023-06-30"
+
+# ─── Tax IDs ────────────────────────────────────────────────
+# SENSITIVE — keep in .env or here (this file is gitignored)
+tax_ids:
+  US_SSN: ""                             # or reference .env: "${US_SSN}"
+  UK_UTR: ""                             # HMRC Unique Taxpayer Reference
+  UK_NINO: ""                            # National Insurance Number
+  CA_SIN: ""                             # Social Insurance Number
+
+# ─── Income Sources ─────────────────────────────────────────
+income:
+  - year: 2024
+    sources:
+      - type: "employment"
+        country: "UK"
+        employer: "Acme Capital LLP"
+        gross: 250000
+        currency: "GBP"
+        tax_withheld: 95000
+        ni_paid: 8500
+        start: "2024-01-01"
+        end: "2024-12-31"
+        notes: ""
+      - type: "freelance"
+        country: "US"
+        client: "Consulting LLC"
+        gross: 15000
+        currency: "USD"
+        tax_withheld: 0
+        notes: "1099-NEC expected"
+  - year: 2025
+    sources:
+      - type: "employment"
+        country: "UK"
+        employer: "Acme Capital LLP"
+        gross: 200000
+        currency: "GBP"
+        tax_withheld: 78000
+        ni_paid: 7000
+        start: "2025-01-01"
+        end: "2025-12-05"
+        notes: "terminated Dec 5"
+      - type: "severance"
+        country: "UK"
+        gross: 121378
+        currency: "USD"
+        tax_withheld: 0
+        notes: "PILON payment"
+
+# ─── Entities ────────────────────────────────────────────────
+entities:
+  - name: "My Startup LLC"
+    type: "LLC"
+    state: "WY"
+    country: "US"
+    formed: "2022-03-15"
+    ein: ""
+    status: "active"                     # active | delinquent | dissolved
+    tax_classification: "disregarded"    # disregarded | partnership | s-corp | c-corp
+    members: ["Jane Smith"]
+    registered_agent: "Northwest Registered Agent"
+    annual_fee: 60
+    last_annual_report: "2024-03-15"
+    last_tax_return: "2024"
+    revenue_last_12mo: 0
+    notes: ""
+
+  - name: "Old Project Inc"
+    type: "LLC"
+    state: "CA"
+    country: "US"
+    formed: "2019-08-01"
+    ein: ""
+    status: "delinquent"
+    tax_classification: "disregarded"
+    members: ["Jane Smith"]
+    registered_agent: "none"
+    annual_fee: 800
+    last_annual_report: "2020-08-01"
+    last_tax_return: "2020"
+    revenue_last_12mo: 0
+    notes: "forgot about this — $800/yr CA franchise tax accumulating"
+
+# ─── Financial Accounts ─────────────────────────────────────
+accounts:
+  - institution: "Chase Bank"
+    country: "US"
+    type: "checking"
+    last4: "1234"
+    max_balance_2024: 45000
+    currency: "USD"
+    notes: ""
+
+  - institution: "Barclays"
+    country: "UK"
+    type: "current"
+    last4: "5678"
+    max_balance_2024: 85000
+    currency: "GBP"
+    notes: "still open after leaving UK"
+
+  - institution: "RBC"
+    country: "CA"
+    type: "chequing"
+    last4: "9012"
+    max_balance_2024: 15000
+    currency: "CAD"
+    notes: ""
+
+  - institution: "Fidelity"
+    country: "US"
+    type: "401k"
+    last4: "3456"
+    max_balance_2024: 150000
+    currency: "USD"
+    notes: "distribution taken in 2024 — 1099-R expected"
+
+  - institution: "Coinbase"
+    country: "US"
+    type: "crypto"
+    last4: ""
+    max_balance_2024: 12000
+    currency: "USD"
+    notes: "mixed BTC/ETH"
+
+  - institution: "Interactive Brokers"
+    country: "UK"
+    type: "brokerage"
+    last4: "7890"
+    max_balance_2024: 30000
+    currency: "GBP"
+    notes: "UK-based account, US citizen"
+
+# ─── Filing Status ───────────────────────────────────────────
+filings:
+  - jurisdiction: "US"
+    form: "1040"
+    year: 2023
+    status: "filed"
+    filed_date: "2024-04-15"
+    notes: ""
+
+  - jurisdiction: "US"
+    form: "1040"
+    year: 2024
+    status: "extension"
+    extension_deadline: "2025-10-15"
+    notes: "extension filed, need to complete"
+
+  - jurisdiction: "US"
+    form: "FBAR"
+    year: 2024
+    status: "not_filed"
+    notes: "foreign accounts exceed $10K — must file"
+
+  - jurisdiction: "UK"
+    form: "Self Assessment"
+    year: "2024-25"                      # UK tax year
+    status: "not_filed"
+    deadline: "2026-01-31"
+    notes: "taxes were withheld via PAYE but no SA filed"
+
+  - jurisdiction: "CA"
+    form: "T1"
+    year: 2024
+    status: "not_filed"
+    notes: "became resident mid-year — may need part-year return"
+
+# ─── Retirement / Distributions ──────────────────────────────
+distributions:
+  - year: 2024
+    account: "Fidelity 401k"
+    amount: 130000
+    currency: "USD"
+    type: "early_distribution"           # normal | early | rollover | roth_conversion
+    penalty_exception: ""                # hardship | separation_55 | none
+    tax_withheld: 26000
+    form: "1099-R"
+    notes: ""
+
+# ─── Crypto ──────────────────────────────────────────────────
+crypto:
+  exchanges:
+    - name: "Coinbase"
+      country: "US"
+      has_1099: true
+    - name: "Gemini"
+      country: "US"
+      has_1099: false
+  realized_gains_2024: 0
+  unrealized_value: 12000
+  notes: "need to pull transaction history for cost basis"
+
+# ─── Notes ───────────────────────────────────────────────────
+notes: |
+  General situation notes go here.
+  - Moved from UK to Canada in 2025
+  - Need to sort out UK departure return
+  - 401k distribution needs to be reported
+  - Crypto cost basis is a mess
