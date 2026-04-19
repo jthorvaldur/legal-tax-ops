@@ -14,6 +14,7 @@ from .models import Severity
 from .report import generate_html_report
 from .roadmap import generate_public_roadmap, generate_personal_roadmap
 from .dashboard import generate_dashboard
+from .deep_view import generate_deep_view
 
 
 console = Console()
@@ -235,3 +236,70 @@ def dashboard(profile_path: str, output: str | None, open_browser: bool):
     if open_browser:
         import subprocess
         subprocess.run(["open", "-a", "Google Chrome", str(out.resolve())])
+
+
+@cli.command()
+@click.argument("profile_path", type=click.Path(exists=True))
+@click.option("--output", "-o", type=click.Path(), default=None)
+@click.option("--open", "open_browser", is_flag=True, help="Open in browser")
+def deep_view(profile_path: str, output: str | None, open_browser: bool):
+    """Generate deep per-jurisdiction intelligence view."""
+    profile = load_profile(profile_path)
+    name = profile.get("identity", {}).get("name", "unknown")
+    slug = name.lower().replace(" ", "_")
+
+    if output is None:
+        out = Path(f"reports/{slug}_deep_view.html")
+    else:
+        out = Path(output)
+
+    generate_deep_view(profile_path, out)
+    console.print(f"[green]Deep jurisdiction view saved to {out}[/green]")
+
+    if open_browser:
+        import subprocess
+        subprocess.run(["open", "-a", "Google Chrome", str(out.resolve())])
+
+
+@cli.command()
+@click.argument("profile_path", type=click.Path(exists=True))
+@click.option("--open", "open_browser", is_flag=True, help="Open all in browser")
+def all_views(profile_path: str, open_browser: bool):
+    """Generate all views: report, roadmap, dashboard, deep view."""
+    profile = load_profile(profile_path)
+    result = analyze(profile)
+    name = result.name
+    slug = name.lower().replace(" ", "_")
+
+    paths = []
+
+    # Report
+    p = Path(f"reports/{slug}_report.html")
+    generate_html_report(result, p)
+    paths.append(p)
+    console.print(f"  [green]Report:[/green] {p}")
+
+    # Roadmap
+    p = Path(f"reports/{slug}_roadmap.html")
+    generate_personal_roadmap(result, p)
+    paths.append(p)
+    console.print(f"  [green]Roadmap:[/green] {p}")
+
+    # Dashboard
+    p = Path(f"reports/{slug}_dashboard.html")
+    generate_dashboard(profile_path, p)
+    paths.append(p)
+    console.print(f"  [green]Dashboard:[/green] {p}")
+
+    # Deep view
+    p = Path(f"reports/{slug}_deep_view.html")
+    generate_deep_view(profile_path, p)
+    paths.append(p)
+    console.print(f"  [green]Deep view:[/green] {p}")
+
+    console.print(f"\n[bold]4 views generated for {name}[/bold]")
+
+    if open_browser:
+        import subprocess
+        for p in paths:
+            subprocess.run(["open", "-a", "Google Chrome", str(p.resolve())])
