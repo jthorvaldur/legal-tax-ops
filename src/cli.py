@@ -13,6 +13,7 @@ from .analyzer import analyze, load_profile
 from .models import Severity
 from .report import generate_html_report
 from .roadmap import generate_public_roadmap, generate_personal_roadmap
+from .dashboard import generate_dashboard
 
 
 console = Console()
@@ -210,3 +211,27 @@ def my_roadmap(profile_path: str, output: str | None):
 
     generate_personal_roadmap(result, out)
     console.print(f"[green]Personal roadmap saved to {out}[/green]")
+
+
+@cli.command()
+@click.argument("profile_path", type=click.Path(exists=True))
+@click.option("--output", "-o", type=click.Path(), default=None,
+              help="Output path (default: reports/<name>_dashboard.html)")
+@click.option("--open", "open_browser", is_flag=True, help="Open in browser after generating")
+def dashboard(profile_path: str, output: str | None, open_browser: bool):
+    """Generate a comprehensive Palantir-style dashboard."""
+    profile = load_profile(profile_path)
+
+    if output is None:
+        name = profile.get("identity", {}).get("name", "unknown")
+        slug = name.lower().replace(" ", "_")
+        out = Path(f"reports/{slug}_dashboard.html")
+    else:
+        out = Path(output)
+
+    generate_dashboard(profile_path, out)
+    console.print(f"[green]Dashboard saved to {out}[/green]")
+
+    if open_browser:
+        import subprocess
+        subprocess.run(["open", "-a", "Google Chrome", str(out.resolve())])
