@@ -15,6 +15,7 @@ from .report import generate_html_report
 from .roadmap import generate_public_roadmap, generate_personal_roadmap
 from .dashboard import generate_dashboard
 from .deep_view import generate_deep_view
+from .reboot import print_reboot_summary
 
 
 console = Console()
@@ -303,3 +304,9 @@ def all_views(profile_path: str, open_browser: bool):
         import subprocess
         for p in paths:
             subprocess.run(["open", "-a", "Google Chrome", str(p.resolve())])
+
+
+@cli.command()
+def reboot():
+    """Generate a session summary for continuity across conversations."""
+    print_reboot_summary()
