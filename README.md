@@ -80,7 +80,8 @@ legal-tax-ops/
 ├── src/                          # Python scanner and tools
 │   ├── models.py                 # Obligation, GovernmentView, ProfileAnalysis
 │   ├── analyzer.py               # Jurisdiction analyzers (US, UK, CA, FBAR, FATCA, crypto, entities)
-│   ├── cli.py                    # Rich terminal CLI — scan, init, governments
+│   ├── cli.py                    # Rich terminal CLI — scan, init, governments, dimensions
+│   ├── dimensions.py             # Reusable directory scanner + interactive SVG chart generator
 │   └── report.py                 # Dark-themed HTML report generator
 │
 ├── legal/                        # Reference guides
@@ -238,6 +239,10 @@ uv run python -m src governments profiles/joel.yaml
 
 # Create a new profile interactively
 uv run python -m src init
+
+# Dimension plots for any directory (reusable)
+uv run python -m src dimensions ~/projects/my-site --open
+uv run python -m src dimensions /path/to/any/dir -t "Custom Title" --open
 ```
 
 ---

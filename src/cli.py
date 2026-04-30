@@ -16,6 +16,8 @@ from .roadmap import generate_public_roadmap, generate_personal_roadmap
 from .dashboard import generate_dashboard
 from .deep_view import generate_deep_view
 from .reboot import print_reboot_summary
+from .dimensions import scan_directory, generate_dimension_report
+from .person_space import build_person_space, generate_person_report
 
 
 console = Console()
@@ -304,6 +306,68 @@ def all_views(profile_path: str, open_browser: bool):
         import subprocess
         for p in paths:
             subprocess.run(["open", "-a", "Google Chrome", str(p.resolve())])
+
+
+@cli.command()
+@click.argument("directory", type=click.Path(exists=True))
+@click.option("--output", "-o", type=click.Path(), default=None,
+              help="Output HTML path (default: reports/<dirname>_dimensions.html)")
+@click.option("--open", "open_browser", is_flag=True, help="Open in browser")
+@click.option("--title", "-t", type=str, default=None, help="Report title")
+def dimensions(directory: str, output: str | None, open_browser: bool, title: str | None):
+    """Scan a directory and generate a dimension report with interactive charts."""
+    dir_path = Path(directory).resolve()
+    console.print(f"Scanning [bold]{dir_path}[/bold]...")
+
+    data = scan_directory(str(dir_path))
+
+    if output is None:
+        out = Path(f"reports/{dir_path.name}_dimensions.html")
+    else:
+        out = Path(output)
+
+    generate_dimension_report(data, out, title=title)
+    console.print(f"[green]Dimension report saved to {out}[/green]")
+    console.print(f"  {data.total_files} files, {data.total_dirs} dirs, {data.max_depth} depth")
+
+    if open_browser:
+        import subprocess
+        subprocess.run(["open", "-a", "Google Chrome", str(out.resolve())])
+
+
+@cli.command()
+@click.argument("name")
+@click.option("--mode", "-m", type=click.Choice(["utility", "full"]), default="utility",
+              help="utility = filter personal content, full = everything")
+@click.option("--threshold", "-t", type=float, default=0.45, help="Similarity threshold")
+@click.option("--output", "-o", type=click.Path(), default=None)
+@click.option("--open", "open_browser", is_flag=True, help="Open in browser")
+def person_space(name: str, mode: str, threshold: float, output: str | None, open_browser: bool):
+    """Map a person's full information space across all Qdrant collections."""
+    console.print(f"Building information space for [bold]{name}[/bold] (mode={mode}, threshold={threshold})...")
+
+    space = build_person_space(name, mode=mode, similarity_threshold=threshold)
+
+    slug = name.lower().replace(" ", "_")
+    if output is None:
+        out = Path(f"reports/{slug}_space.html")
+    else:
+        out = Path(output)
+
+    generate_person_report(space, out)
+
+    console.print(f"[green]Person space saved to {out}[/green]")
+    console.print(f"  Raw: {space.total_raw} points")
+    console.print(f"  Filtered: {space.total_filtered} points ({space.mode} mode)")
+    console.print(f"  Dimensions: {space.total_dimensions:,}")
+    for coll, count in sorted(space.collection_counts.items(), key=lambda x: x[1], reverse=True):
+        console.print(f"    {coll}: {count}")
+    if space.variance_explained:
+        console.print(f"  PCA: {' + '.join(f'PC{i+1}={v}%' for i,v in enumerate(space.variance_explained))}")
+
+    if open_browser:
+        import subprocess
+        subprocess.run(["open", "-a", "Google Chrome", str(out.resolve())])
 
 
 @cli.command()

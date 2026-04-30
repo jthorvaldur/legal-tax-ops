@@ -21,6 +21,7 @@ uv run python -m src dashboard profiles/joel.yaml --open  # Palantir-style dashb
 uv run python -m src deep-view profiles/joel.yaml --open  # per-country auditor view
 uv run python -m src roadmap                              # public roadmap (no personal data)
 uv run python -m src my-roadmap profiles/joel.yaml        # personal roadmap
+uv run python -m src dimensions /path/to/dir --open       # dimension plots for any directory
 ```
 
 ## Architecture
@@ -33,6 +34,7 @@ uv run python -m src my-roadmap profiles/joel.yaml        # personal roadmap
 - `src/roadmap.py` — Public + personal roadmap generator
 - `src/dashboard.py` — Palantir-style interconnected dashboard
 - `src/deep_view.py` — Per-jurisdiction deep intelligence view
+- `src/dimensions.py` — Reusable directory dimension scanner + interactive chart generator
 - `legal/`, `tax/`, `guides/`, `templates/` — Reference documentation (public)
 
 ## Data Separation
@@ -53,7 +55,7 @@ uv run python -m src my-roadmap profiles/joel.yaml        # personal roadmap
 ## Current State (as of April 2026)
 
 Phase 1 DONE: Profile scanner with US/UK/CA/FBAR/FATCA/crypto/entity analyzers.
-4 HTML views: report, roadmap, dashboard, deep-view.
+5 HTML views: report, roadmap, dashboard, deep-view, dimensions.
 
 Phase 2 NEXT: Entity search (SOS websites), FBAR aggregator, compliance calendar.
 Phase 3: Tax pro finder, div_legal integration.
