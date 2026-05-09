@@ -9,13 +9,13 @@ tell application "Google Chrome"
 	-- GROUP 1: Case Filing (Cook County)
 	make new window
 	set w1 to window 1
-	set URL of active tab of w1 to "https://jthorvaldur.github.io/r/cook6724-QgixOl/filing/"
+	set URL of active tab of w1 to "https://jthorvaldur.github.io/r/CASE_REF-QgixOl/filing/"
 
 	tell w1
-		make new tab with properties {URL:"https://jthorvaldur.github.io/r/cook6724-QgixOl/filing/roadmap.html"}
-		make new tab with properties {URL:"https://jthorvaldur.github.io/r/cook6724-QgixOl/filing/legal_guide.html"}
-		make new tab with properties {URL:"https://jthorvaldur.github.io/r/cook6724-QgixOl/filing/legal_guide.html#foundations"}
-		make new tab with properties {URL:"https://jthorvaldur.github.io/r/cook6724-QgixOl/filing/strategy.html"}
+		make new tab with properties {URL:"https://jthorvaldur.github.io/r/CASE_REF-QgixOl/filing/roadmap.html"}
+		make new tab with properties {URL:"https://jthorvaldur.github.io/r/CASE_REF-QgixOl/filing/legal_guide.html"}
+		make new tab with properties {URL:"https://jthorvaldur.github.io/r/CASE_REF-QgixOl/filing/legal_guide.html#foundations"}
+		make new tab with properties {URL:"https://jthorvaldur.github.io/r/CASE_REF-QgixOl/filing/strategy.html"}
 		make new tab with properties {URL:"file:///Users/jthor/div_legal/reports/case_timeline.html"}
 		make new tab with properties {URL:"https://efileil.tylertech.cloud/OfsEfsp/ui/dashboard"}
 		make new tab with properties {URL:"https://efileil.tylertech.cloud/OfsEfsp/ui/edit-envelope/48bb9876-79db-4f45-8909-20362d04c6eb/filings"}

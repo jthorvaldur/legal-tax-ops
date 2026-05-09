@@ -7,8 +7,8 @@ interactive 3D PCA projection.
 Usage:
     from src.person_space import build_person_space, generate_person_report
 
-    space = build_person_space("Allison Hensgen", mode="utility")
-    generate_person_report(space, Path("reports/allison_space.html"))
+    space = build_person_space("Party A", mode="utility")
+    generate_person_report(space, Path("reports/party_a_space.html"))
 
 Modes:
     "full"    — everything above similarity threshold
