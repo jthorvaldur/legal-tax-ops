@@ -268,3 +268,7 @@ PRs welcome. If you've navigated a multi-jurisdiction tax situation or built a p
 ## License
 
 MIT — use freely.
+
+<!-- AUTO:footer -->
+Managed by [policy-orchestrator](https://github.com/jthorvaldur/policy-orchestrator). Category: legal. 12 commits, last updated 33 minutes ago.
+<!-- /AUTO:footer -->
